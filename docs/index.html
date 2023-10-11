@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/MarkerCluster.css">
+        <link rel="stylesheet" href="css/MarkerCluster.Default.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet.markercluster.js"></script>
+        <script src="data/Panos_5_metros_div_2.js"></script>
+        <script src="data/ptos_5m_3.js"></script>
+        <script src="data/EJECAMINO_4.js"></script>
+        <script src="data/BITACORA_5.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[-37.7339995916345,-72.25691513334229],[-37.73182637638295,-72.25167988959383]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_OSMStandard_0');
+        map.getPane('pane_OSMStandard_0').style.zIndex = 400;
+        var layer_OSMStandard_0 = L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            pane: 'pane_OSMStandard_0',
+            opacity: 1.0,
+            attribution: '<a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors, CC-BY-SA</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 19
+        });
+        layer_OSMStandard_0;
+        map.addLayer(layer_OSMStandard_0);
+        map.createPane('pane_GoogleSatellite_1');
+        map.getPane('pane_GoogleSatellite_1').style.zIndex = 401;
+        var layer_GoogleSatellite_1 = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+            pane: 'pane_GoogleSatellite_1',
+            opacity: 1.0,
+            attribution: '<a href="https://www.google.at/permissions/geoguidelines/attr-guide.html">Map data ©2015 Google</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 20
+        });
+        layer_GoogleSatellite_1;
+        map.addLayer(layer_GoogleSatellite_1);
+        function pop_Panos_5_metros_div_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">id</th>\
+                        <td>' + (feature.properties['id'] !== null ? autolinker.link(feature.properties['id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Km Inicio</th>\
+                        <td>' + (feature.properties['Km Inicio'] !== null ? autolinker.link(feature.properties['Km Inicio'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Km Final</th>\
+                        <td>' + (feature.properties['Km Final'] !== null ? autolinker.link(feature.properties['Km Final'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Lado</th>\
+                        <td>' + (feature.properties['Lado'] !== null ? autolinker.link(feature.properties['Lado'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Estatus</th>\
+                        <td>' + (feature.properties['Estatus'] !== null ? autolinker.link(feature.properties['Estatus'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Panos_5_metros_div_2_0() {
+            return {
+                pane: 'pane_Panos_5_metros_div_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(114,155,111,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Panos_5_metros_div_2');
+        map.getPane('pane_Panos_5_metros_div_2').style.zIndex = 402;
+        map.getPane('pane_Panos_5_metros_div_2').style['mix-blend-mode'] = 'normal';
+        var layer_Panos_5_metros_div_2 = new L.geoJson(json_Panos_5_metros_div_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Panos_5_metros_div_2',
+            layerName: 'layer_Panos_5_metros_div_2',
+            pane: 'pane_Panos_5_metros_div_2',
+            onEachFeature: pop_Panos_5_metros_div_2,
+            style: style_Panos_5_metros_div_2_0,
+        });
+        bounds_group.addLayer(layer_Panos_5_metros_div_2);
+        map.addLayer(layer_Panos_5_metros_div_2);
+        function pop_ptos_5m_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">KM</th>\
+                        <td>' + (feature.properties['KM'] !== null ? autolinker.link(feature.properties['KM'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">NORTE</th>\
+                        <td>' + (feature.properties['NORTE'] !== null ? autolinker.link(feature.properties['NORTE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ESTE</th>\
+                        <td>' + (feature.properties['ESTE'] !== null ? autolinker.link(feature.properties['ESTE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_ptos_5m_3_0() {
+            return {
+                pane: 'pane_ptos_5m_3',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(232,113,141,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_ptos_5m_3');
+        map.getPane('pane_ptos_5m_3').style.zIndex = 403;
+        map.getPane('pane_ptos_5m_3').style['mix-blend-mode'] = 'normal';
+        var layer_ptos_5m_3 = new L.geoJson(json_ptos_5m_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_ptos_5m_3',
+            layerName: 'layer_ptos_5m_3',
+            pane: 'pane_ptos_5m_3',
+            onEachFeature: pop_ptos_5m_3,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_ptos_5m_3_0(feature));
+            },
+        });
+        var cluster_ptos_5m_3 = new L.MarkerClusterGroup({showCoverageOnHover: false,
+            spiderfyDistanceMultiplier: 2});
+        cluster_ptos_5m_3.addLayer(layer_ptos_5m_3);
+
+        bounds_group.addLayer(layer_ptos_5m_3);
+        cluster_ptos_5m_3.addTo(map);
+        function pop_EJECAMINO_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">ÍTEM</th>\
+                        <td>' + (feature.properties['ÍTEM'] !== null ? autolinker.link(feature.properties['ÍTEM'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">SUB-ÍTEM</th>\
+                        <td>' + (feature.properties['SUB-ÍTEM'] !== null ? autolinker.link(feature.properties['SUB-ÍTEM'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">DESCR.</th>\
+                        <td>' + (feature.properties['DESCR.'] !== null ? autolinker.link(feature.properties['DESCR.'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">UNI</th>\
+                        <td>' + (feature.properties['UNI'] !== null ? autolinker.link(feature.properties['UNI'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">P_UNI</th>\
+                        <td>' + (feature.properties['P_UNI'] !== null ? autolinker.link(feature.properties['P_UNI'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">CANT.</th>\
+                        <td>' + (feature.properties['CANT.'] !== null ? autolinker.link(feature.properties['CANT.'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">DESC_ITEM</th>\
+                        <td>' + (feature.properties['DESC_ITEM'] !== null ? autolinker.link(feature.properties['DESC_ITEM'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">P_TOTAL</th>\
+                        <td>' + (feature.properties['P_TOTAL'] !== null ? autolinker.link(feature.properties['P_TOTAL'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_EJECAMINO_4_0() {
+            return {
+                pane: 'pane_EJECAMINO_4',
+                opacity: 1,
+                color: 'rgba(229,11,0,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_EJECAMINO_4');
+        map.getPane('pane_EJECAMINO_4').style.zIndex = 404;
+        map.getPane('pane_EJECAMINO_4').style['mix-blend-mode'] = 'normal';
+        var layer_EJECAMINO_4 = new L.geoJson(json_EJECAMINO_4, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_EJECAMINO_4',
+            layerName: 'layer_EJECAMINO_4',
+            pane: 'pane_EJECAMINO_4',
+            onEachFeature: pop_EJECAMINO_4,
+            style: style_EJECAMINO_4_0,
+        });
+        bounds_group.addLayer(layer_EJECAMINO_4);
+        map.addLayer(layer_EJECAMINO_4);
+        function pop_BITACORA_5(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">ÍTEM</th>\
+                        <td>' + (feature.properties['ÍTEM'] !== null ? autolinker.link(feature.properties['ÍTEM'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">SUB-ÍTEM</th>\
+                        <td>' + (feature.properties['SUB-ÍTEM'] !== null ? autolinker.link(feature.properties['SUB-ÍTEM'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">DESCR.</th>\
+                        <td>' + (feature.properties['DESCR.'] !== null ? autolinker.link(feature.properties['DESCR.'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">UNI</th>\
+                        <td>' + (feature.properties['UNI'] !== null ? autolinker.link(feature.properties['UNI'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">KM INICIO</th>\
+                        <td>' + (feature.properties['KM INICIO'] !== null ? autolinker.link(feature.properties['KM INICIO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">KM FINAL</th>\
+                        <td>' + (feature.properties['KM FINAL'] !== null ? autolinker.link(feature.properties['KM FINAL'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">FECHA</th>\
+                        <td>' + (feature.properties['FECHA'] !== null ? autolinker.link(feature.properties['FECHA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">SEMANA</th>\
+                        <td>' + (feature.properties['SEMANA'] !== null ? autolinker.link(feature.properties['SEMANA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">LADO</th>\
+                        <td>' + (feature.properties['LADO'] !== null ? autolinker.link(feature.properties['LADO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">%_EJEC</th>\
+                        <td>' + (feature.properties['%_EJEC'] !== null ? autolinker.link(feature.properties['%_EJEC'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">CANT EJEC</th>\
+                        <td>' + (feature.properties['CANT EJEC'] !== null ? autolinker.link(feature.properties['CANT EJEC'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_BITACORA_5_0() {
+            return {
+                pane: 'pane_BITACORA_5',
+                opacity: 1,
+                color: 'rgba(231,113,72,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_BITACORA_5');
+        map.getPane('pane_BITACORA_5').style.zIndex = 405;
+        map.getPane('pane_BITACORA_5').style['mix-blend-mode'] = 'normal';
+        var layer_BITACORA_5 = new L.geoJson(json_BITACORA_5, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_BITACORA_5',
+            layerName: 'layer_BITACORA_5',
+            pane: 'pane_BITACORA_5',
+            onEachFeature: pop_BITACORA_5,
+            style: style_BITACORA_5_0,
+        });
+        bounds_group.addLayer(layer_BITACORA_5);
+        map.addLayer(layer_BITACORA_5);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/BITACORA_5.png" /> BITACORA': layer_BITACORA_5,'<img src="legend/EJECAMINO_4.png" /> EJE CAMINO': layer_EJECAMINO_4,'<img src="legend/ptos_5m_3.png" /> ptos_5m': cluster_ptos_5m_3,'<img src="legend/Panos_5_metros_div_2.png" /> Panos_5_metros_div': layer_Panos_5_metros_div_2,"Google Satellite": layer_GoogleSatellite_1,"OSM Standard": layer_OSMStandard_0,}).addTo(map);
+        setBounds();
+        </script>
+    </body>
+</html>
